@@ -2,6 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Mahasiswa;
+use App\Entity\User;
+use App\Entity\Wilayah;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -27,6 +30,8 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+        yield MenuItem::linkToCrud('Mahasiswa', 'fas fa-list', Mahasiswa::class);
+        yield MenuItem::linkToCrud('Data Kecamatan', 'fas fa-map-marked', Wilayah::class);
+        yield MenuItem::linkToCrud('Pengguna', 'fas fa-users', User::class);
     }
 }
