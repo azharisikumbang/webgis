@@ -1,0 +1,17 @@
+{% extends 'page.html.twig' %}
+
+{% block title %}Galeri Geodesi ITP!{% endblock %}
+
+{% block body %}
+	<div id="page">
+		<div id="galeri">
+		{% for i in 1..8 %}
+			{% set url = 'images/' ~ i ~ '.jpg' %}
+			<div>
+				<img src="{{ asset(url) }}">
+			</div>
+		{% endfor %}
+		</div>
+	</div>
+
+{% endblock %}

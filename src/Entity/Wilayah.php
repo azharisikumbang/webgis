@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\WilayahRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,7 +22,12 @@ class Wilayah
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nama;
+    private $kecamatan;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $kabupaten;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -28,23 +35,40 @@ class Wilayah
     private $provinsi;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\OneToMany(targetEntity=Mahasiswa::class, mappedBy="kecamatan", cascade="all", orphanRemoval=true)
      */
-    private $nama_object;
+    private $mahasiswa;
+
+    public function __construct()
+    {
+        $this->mahasiswa = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNama(): ?string
+    public function getKecamatan(): ?string
     {
-        return $this->nama;
+        return $this->kecamatan;
     }
 
-    public function setNama(string $nama): self
+    public function setKecamatan(string $kecamatan): self
     {
-        $this->nama = $nama;
+        $this->kecamatan = $kecamatan;
+
+        return $this;
+    }
+
+    public function getKabupaten(): ?string
+    {
+        return $this->kabupaten;
+    }
+
+    public function setKabupaten(string $kabupaten): self
+    {
+        $this->kabupaten = $kabupaten;
 
         return $this;
     }
@@ -61,14 +85,32 @@ class Wilayah
         return $this;
     }
 
-    public function getNamaObject(): ?string
+    /**
+     * @return Collection|Mahasiswa[]
+     */
+    public function getMahasiswa(): Collection
     {
-        return $this->nama_object;
+        return $this->mahasiswa;
     }
 
-    public function setNamaObject(string $nama_object): self
+    public function addMahasiswa(Mahasiswa $mahasiswa): self
     {
-        $this->nama_object = $nama_object;
+        if (!$this->mahasiswa->contains($mahasiswa)) {
+            $this->mahasiswa[] = $mahasiswa;
+            $mahasiswa->setKecamatan($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMahasiswa(Mahasiswa $mahasiswa): self
+    {
+        if ($this->mahasiswa->removeElement($mahasiswa)) {
+            // set the owning side to null (unless already changed)
+            if ($mahasiswa->getKecamatan() === $this) {
+                $mahasiswa->setKecamatan(null);
+            }
+        }
 
         return $this;
     }

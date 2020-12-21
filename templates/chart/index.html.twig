@@ -1,0 +1,17 @@
+{% extends 'page.html.twig' %}
+
+{% block title %}Hello ChartController!{% endblock %}
+
+{% block body %}
+	<div id="page">
+		<div id="yearChartWrapper">
+			<h3>Perkembangan Tahunan Mahasiswa Teknik Geodesi 2002 - {{ 'now' | date('Y') }}</h3>
+			<canvas id="yearChart" width="900px" height="400"></canvas>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	<script type="text/javascript" src="{{ asset('libs/Chartjs/Chart.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/chart.script.js') }}"></script>
+{% endblock %}

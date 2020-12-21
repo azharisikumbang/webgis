@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\MahasiswaRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,7 +29,7 @@ class Mahasiswa
     private $nama;
 
     /**
-     * @ORM\Column(type="string", length=16)
+     * @ORM\Column(type="string", length=16, nullable=true)
      */
     private $kontak;
 
@@ -38,9 +39,15 @@ class Mahasiswa
     private $email;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity=Wilayah::class, inversedBy="mahasiswa", cascade={"persist", "detach"})
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $kecamatan_id;
+    private $kecamatan;
+
+    public function __construct()
+    {
+        $this->kecamatan = new Wilayah();
+    }
 
     public function getId(): ?int
     {
@@ -76,7 +83,7 @@ class Mahasiswa
         return $this->kontak;
     }
 
-    public function setKontak(string $kontak): self
+    public function setKontak(?string $kontak): self
     {
         $this->kontak = $kontak;
 
@@ -95,14 +102,14 @@ class Mahasiswa
         return $this;
     }
 
-    public function getKecamatanId(): ?int
+    public function getKecamatan(): ?Wilayah
     {
-        return $this->kecamatan_id;
+        return $this->kecamatan;
     }
 
-    public function setKecamatanId(int $kecamatan_id): self
+    public function setKecamatan(?Wilayah $kecamatan): self
     {
-        $this->kecamatan_id = $kecamatan_id;
+        $this->kecamatan = $kecamatan;
 
         return $this;
     }

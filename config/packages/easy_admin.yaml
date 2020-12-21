@@ -1,0 +1,7 @@
+easy_admin:
+    entities:
+        Mahasiswa:
+            class: App\Entity\Mahasiswa
+            form:
+                title: 'Add Mahasiswasss'
+                # form_options: { validation_groups: ['Default'] }

@@ -18,20 +18,29 @@ class DashboardController extends AbstractDashboardController
      */
     public function index(): Response
     {
-        return parent::index();
+        return $this->render('admin/dashboard.html.twig', [
+            'dashboard_controller_filepath' => (new \ReflectionClass(static::class))->getFileName(),
+            'dashboard_controller_class' => (new \ReflectionClass(static::class))->getShortName(),
+        ]);
+        // return parent::index();
     }
 
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Webgis');
+            ->setTitle('Webgis')
+        ;
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Mahasiswa', 'fas fa-list', Mahasiswa::class);
-        yield MenuItem::linkToCrud('Data Kecamatan', 'fas fa-map-marked', Wilayah::class);
-        yield MenuItem::linkToCrud('Pengguna', 'fas fa-users', User::class);
+         return [
+            MenuItem::linktoDashboard('Dashboard', 'fa fa-home'),
+            MenuItem::linkToRoute('Lihat Peta', 'fa fa-map-marked', 'home'),
+            MenuItem::linkToCrud('Mahasiswa', 'fas fa-list', Mahasiswa::class),
+            MenuItem::linkToCrud('Data Wilayah', 'fas fa-map-marker', Wilayah::class),
+            MenuItem::linkToCrud('Pengguna', 'fas fa-users', User::class),
+            MenuItem::linkToLogout('Keluar', 'fa fa-sign-out')
+        ];
     }
 }
