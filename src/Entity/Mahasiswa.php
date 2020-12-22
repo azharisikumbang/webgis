@@ -39,15 +39,9 @@ class Mahasiswa
     private $email;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Wilayah::class, inversedBy="mahasiswa", cascade={"persist", "detach"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Kecamatan::class, inversedBy="mahasiswas")
      */
-    private $kecamatan;
-
-    public function __construct()
-    {
-        $this->kecamatan = new Wilayah();
-    }
+    private $lokasi;
 
     public function getId(): ?int
     {
@@ -102,15 +96,23 @@ class Mahasiswa
         return $this;
     }
 
-    public function getKecamatan(): ?Wilayah
+    public function getLokasi(): ?Kecamatan
     {
-        return $this->kecamatan;
+        return $this->lokasi;
     }
 
-    public function setKecamatan(?Wilayah $kecamatan): self
+    public function setLokasi(?Kecamatan $lokasi): self
     {
-        $this->kecamatan = $kecamatan;
+        $this->lokasi = $lokasi;
 
         return $this;
+    }
+
+    public function getProvinsi() {
+        return $this->lokasi->getProvinsi();
+    }
+
+    public function getKabupaten() {
+        return $this->lokasi->getKabupaten();
     }
 }
