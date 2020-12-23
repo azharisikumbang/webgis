@@ -23,12 +23,10 @@ class MahasiswaRepository extends ServiceEntityRepository
     public function countByKecamatan()
     {
         return $this->createQueryBuilder('m')
-            ->select("k.nama as kecamatan, count(k.nama) as total")
-            ->leftJoin("App\Entity\Kecamatan", "k")
-            ->groupBy("m.lokasi")
-            ->getQuery()
-            ->execute()
-        ;
+            ->select("m.id, w.kecamatan as nama_kecamatan, count(m.id) as total")
+            ->leftJoin("App\Entity\Wilayah", "w")
+            ->groupBy("m.kecamatan")
+            ->getQuery();
     }
     
 

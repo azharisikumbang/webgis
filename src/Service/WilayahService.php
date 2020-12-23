@@ -43,9 +43,9 @@ class WilayahService
 		return $this->kecamatanRepository->findAll();
 	}
 
-	public function countMahasiswaOnKecamatan() 
+	public function countMahasiswaPerKecamatan() 
 	{
-		return $this->mahasiswaRepository->countByKecamatan();
+		return $this->kecamatanRepository->countMahasiswa();
 	}
 
 }
