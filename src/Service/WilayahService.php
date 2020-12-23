@@ -2,9 +2,10 @@
 
 namespace App\Service;
 
-use App\Repository\ProvinsiRepository;
 use App\Repository\KabupatenRepository;
 use App\Repository\KecamatanRepository;
+use App\Repository\MahasiswaRepository;
+use App\Repository\ProvinsiRepository;
 
 class WilayahService 
 {
@@ -12,16 +13,19 @@ class WilayahService
 	private $provinsiRepository;
 	private $kabupatenRepository;
 	private $kecamatanRepository;
+	private $mahasiswaRepository;
 
 	public function __construct(
 		ProvinsiRepository $provinsiRepository,
 		KabupatenRepository $kabupatenRepository,
-		KecamatanRepository $kecamatanRepository
+		KecamatanRepository $kecamatanRepository,
+		MahasiswaRepository $mahasiswaRepository
 	) 
 	{
 		$this->provinsiRepository = $provinsiRepository;
 		$this->kabupatenRepository = $kabupatenRepository;
 		$this->kecamatanRepository = $kecamatanRepository;
+		$this->mahasiswaRepository = $mahasiswaRepository;
 	}
 
 	public function getAllProvinsi()
@@ -37,6 +41,11 @@ class WilayahService
 	public function getAllKecamatan()
 	{
 		return $this->kecamatanRepository->findAll();
+	}
+
+	public function countMahasiswaOnKecamatan() 
+	{
+		return $this->mahasiswaRepository->countByKecamatan();
 	}
 
 }
