@@ -31,13 +31,16 @@ class MahasiswaRepository extends ServiceEntityRepository
     
 
     
-    public function findOneByNimWithJoin($value)
+    public function findOneByNimWithJoin($nim)
     {
+        // select m.nama, m.nim, m.kontak, m.email, k.nama as kecamatan, kab.nama as kabupaten, p.nama as provinsi from mahasiswa m join kecamatan k on k.id = m.lokasi_id join kabupaten kab on kab.id = k.kabupaten_id join provinsi p on p.id = kab.provinsi_id where m.nim = '$nim';
         return $this->createQueryBuilder('m')
-            ->select("m.nim, m.nama, m.kontak, m.email, w.kecamatan, w.kabupaten, w.provinsi")
-            ->join("App\Entity\Wilayah", "w", Join::WITH, "m.kecamatan = w.id")
-            ->where('m.nim = :val')
-            ->setParameter('val', $value)
+            ->select("m.nim, m.nama, m.kontak, m.email, kec.nama as kecamatan, kab.nama as kabupaten, prov.nama as provinsi")
+            ->join("App\Entity\Kecamatan", "kec", Join::WITH, "m.lokasi = kec.id")
+            ->join("App\Entity\Kabupaten", "kab", Join::WITH, "kec.kabupaten = kab.id")
+            ->join("App\Entity\Provinsi", "prov", Join::WITH, "kab.provinsi = prov.id")
+            ->where('m.nim = ?1')
+            ->setParameter(1, $nim)
             ->getQuery()
             ->getOneOrNullResult()
         ;
@@ -72,6 +75,11 @@ class MahasiswaRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult()
         ;
+    }
+
+    public function countByYear($year) 
+    {
+        
     }
     
 }

@@ -10,17 +10,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MahasiswaController extends AbstractController
 {
-    // /**
-    //  * @Route("/api/mahasiswa", name="api_mahasiswa", methods={"GET"})
-    //  */
-    // public function index(MahasiswaService $mahasiswaService): Response
-    // {
-
-    // 	return $this->json([
-    		
-    // 	]);
-    // }
-
     /**
      * @Route("/api/mahasiswa/{nim}", name="api_mahasiswa_single", methods={"GET"})
      */

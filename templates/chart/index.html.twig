@@ -5,8 +5,32 @@
 {% block body %}
 	<div id="page">
 		<div id="yearChartWrapper">
-			<h3>Perkembangan Tahunan Mahasiswa Teknik Geodesi 2002 - {{ 'now' | date('Y') }}</h3>
+			<h3 class="text-center">Grafik Tahunan Persebaran Mahasiswa Teknik Geodesi 2002 - {{ 'now' | date('Y') }}</h3>
 			<canvas id="yearChart" width="900px" height="400"></canvas>
+		</div>
+
+		<div id="wilayahChartWrapper" style="margin-top: 120px">
+			<h3 class="text-center">Grafik 10 Wilayah Teratas Persebaran Mahasiswa Teknik Geodesi <br> Tahun
+				<select id="wilayahYearSelect" onchange="updateWilayahChartByYear(this.value)">
+					<option value="0"></option>
+					{% for y in 2002.."now"|date("Y") %}
+					<option value="{{ y }}" {{ (y == "now"|date("Y")) ? 'selected="selected"' : '' }}>{{ y }}</option>
+					{% endfor %}
+				</select>
+			</h3>
+			<canvas id="wilayahChart" width="900px" height="400"></canvas>
+		</div>
+
+		<div id="wilayahByYearChartWrapper" style="margin-top: 120px">
+			<h3 class="text-center">Grafik Per Tahun Persebaran Mahasiswa Teknik Geodesi <br> Wilayah
+				<select id="wilayahSelect" onchange="updateYearByWilayah(this.value)">
+					<option value="0"></option>
+					{% for k in kecamatan %}
+					<option value="{{ k.id }}">{{ k.nama }}</option>
+					{% endfor %}
+				</select>
+			</h3>
+			<canvas id="wilayahByYearChart" width="900px" height="400"></canvas>
 		</div>
 	</div>
 {% endblock %}

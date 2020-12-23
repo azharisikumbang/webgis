@@ -24,4 +24,19 @@ class WilayahController extends AbstractController
 
         );
     }
+
+    /**
+     * @Route("/api/wilayah/{kecamatan}/mahasiswa", name="api_wilayah_mahasiswa")
+     */
+    public function getMahasiswaByKecamatan(WilayahService $wilayahService, string $kecamatan): Response
+    {
+        return $this->json(
+        	new ApiOkResponse(
+    			Response::HTTP_OK,
+    			Response::$statusTexts[Response::HTTP_OK],
+    			$wilayahService->getMahasiswaByKecamatan(strtoupper($kecamatan))
+    		)
+
+        );
+    }
 }
