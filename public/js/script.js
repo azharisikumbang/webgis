@@ -61,11 +61,13 @@ async function loadMap() {
 		},
 		style: function(feature) {
 			if (feature.properties.total > 10) {
-				return { "color": "red" }
+				return { "color": "#1a9850", "fillOpacity": 0.6, "weight" : 0.8 }
+			} else if(feature.properties.total > 5) {
+				return { "color" : "#ffffbf", "fillOpacity": 0.6, "weight" : 0.8 }
 			} else if(feature.properties.total > 0) {
-				return { "color" : "blue" }
+				return { "color" : "#d73027", "fillOpacity": 0.6, "weight" : 0.8 }
 			} else {
-				return { "color" : "black" }
+				return { "fillColor" : "transparent", "weight" : 0 }
 			}
 		}
 	}).addTo(map);

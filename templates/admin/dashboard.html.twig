@@ -1,8 +1,21 @@
 {# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
 {% extends '@EasyAdmin/page/content.html.twig' %}
 
-{% block page_title 'Welcome to EasyAdmin 3' %}
+{% block page_title 'Dashboard' %}
 
 {% block page_content %}
-
+	<div>
+		<h3>Selamat Datang!</h3>
+		<p>
+			Webgis Geodesi merupakan sebuah aplikasi web yang berguna untuk merekam persebaran mahasiswa Teknik Geodesi Institut Teknologi Padang. Sejak tahun 2002 hingga saat ini telah terdata sekitar
+			<strong>{{ counter.mahasiswa }}</strong> mahasiswa yang tersebar di 
+			<strong>{{ counter.kecamatan }}</strong> kecamatan, di
+			<strong>{{ counter.kabupaten }}</strong> kabupaten, di 
+			<strong>{{ counter.provinsi }}</strong> provinsi di seluruh Indonesia.
+		</p>
+		<p>
+			<br>
+			&copy; 2020
+		</p>
+	</div>
 {% endblock %}

@@ -7,6 +7,7 @@ use App\Entity\Kecamatan;
 use App\Entity\Mahasiswa;
 use App\Entity\Provinsi;
 use App\Entity\User;
+use App\Service\WilayahService;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -15,6 +16,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
+    private $wilayahService;
+
+    public function __construct(WilayahService $wilayahService) 
+    {
+        $this->wilayahService = $wilayahService;
+    }
+
     /**
      * @Route("/admin", name="admin")
      */
@@ -23,6 +31,7 @@ class DashboardController extends AbstractDashboardController
         return $this->render('admin/dashboard.html.twig', [
             'dashboard_controller_filepath' => (new \ReflectionClass(static::class))->getFileName(),
             'dashboard_controller_class' => (new \ReflectionClass(static::class))->getShortName(),
+            'counter' => $this->wilayahService->countAll()
         ]);
         // return parent::index();
     }

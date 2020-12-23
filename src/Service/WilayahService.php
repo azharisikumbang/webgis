@@ -75,6 +75,16 @@ class WilayahService
 		return $this->kecamatanRepository->countMahasiswaByKecamatanAndYear($kecamatan, $year);
 	}
 
+	public function countAll()
+	{
+		$result["kecamatan"] = $this->kecamatanRepository->count([]);
+		$result["kabupaten"] = $this->kabupatenRepository->count([]);
+		$result["provinsi"] = $this->provinsiRepository->count([]);
+		$result["mahasiswa"] = $this->mahasiswaRepository->count([]);
+
+		return $result;
+	}
+
 	private function createWilayahByKecamatanRequest($kecamatan) 
 	{
 		return new WilayahByKecamatanRequest($kecamatan);
