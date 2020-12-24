@@ -2,6 +2,28 @@ const apiUrl = "http://localhost:8000";
 
 let cache = {};
 
+const config = {
+	map : {
+		indicator: {
+			lowest: {
+				min: 0,
+				color: "#d73027",
+					text: "< 5"
+			},
+			medium: {
+				min: 5,
+				color: "#fddb3a",
+					text: "5 - 10" 
+			},
+			highest: {
+				min: 10,
+				color: "#61b15a",
+				text: "> 10" 
+			}
+		}
+	}
+}
+
 async function request(url){
     const response = await fetch(url)
     const json = await response.json();
@@ -9,6 +31,7 @@ async function request(url){
 }
 
 async function loadMap() {
+	loadMapIndicator();
 
 	const mapboxToken = "pk.eyJ1Ijoia3VteWFrdW0iLCJhIjoiY2tpcWhhaXRlMDlnMDJ0b3pwbTNvaDl4MSJ9.PhflJtxgdetwjV3eRmG6EQ";
 
@@ -60,12 +83,12 @@ async function loadMap() {
 	    		layer.on("click", mapClicked);
 		},
 		style: function(feature) {
-			if (feature.properties.total > 10) {
-				return { "color": "#1a9850", "fillOpacity": 0.6, "weight" : 0.8 }
-			} else if(feature.properties.total > 5) {
-				return { "color" : "#ffffbf", "fillOpacity": 0.6, "weight" : 0.8 }
-			} else if(feature.properties.total > 0) {
-				return { "color" : "#d73027", "fillOpacity": 0.6, "weight" : 0.8 }
+			if (feature.properties.total > config.map.indicator.highest.min) {
+				return { "color": config.map.indicator.highest.color, "fillOpacity": 0.6, "weight" : 2 }
+			} else if(feature.properties.total > config.map.indicator.medium.min) {
+				return { "color" : config.map.indicator.medium.color, "fillOpacity": 0.6, "weight" : 2 }
+			} else if(feature.properties.total > config.map.indicator.lowest.min) {
+				return { "color" : config.map.indicator.lowest.color, "fillOpacity": 0.6, "weight" : 2 }
 			} else {
 				return { "fillColor" : "transparent", "weight" : 0 }
 			}
@@ -114,6 +137,27 @@ function closePopup() {
 	let popupEl = document.getElementById("map-popup-wrapper");
 	popupEl.style.opacity = 0;
 	popupEl.style.zIndex = -1;
+}
+
+function loadMapIndicator() {
+	const mapIndicatorEl = document.querySelector("#map-indicator ul");
+
+	let mapIndicator, boxIndicator, textIndicator;
+	for (let indicator in config.map.indicator) {
+		mapIndicator = document.createElement("li");
+
+		boxIndicator = document.createElement("span");
+		boxIndicator.style.backgroundColor = config.map.indicator[indicator].color;
+
+		textIndicator = document.createElement("small");
+		textIndicator.innerHTML = config.map.indicator[indicator].text;
+
+		mapIndicator.append(boxIndicator);
+		mapIndicator.append(textIndicator);
+		
+		mapIndicatorEl.append(mapIndicator);
+	}
+
 }
 
 function createMahasiswaTable(data) {

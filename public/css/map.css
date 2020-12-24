@@ -3,6 +3,32 @@
 	height: 100vh; 
 }
 
+#map-indicator {
+	position: fixed;
+	bottom: 10px;
+	left: 10px;
+	z-index: 998;
+	background: white;
+	border-radius: 10px;
+	box-shadow: 2px 2px 2px #aeaeae;
+	padding: 8px 16px;
+	font-family: "arial", sans-serif;
+}
+
+#map-indicator ul {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+#map-indicator ul li span {
+	width: 24px;
+	height: 10px;
+	background: red;
+	display: inline-block;
+	margin-right: 10px;
+}
+
 #map-popup-wrapper {
 	position: fixed;
 	top: 20px;
