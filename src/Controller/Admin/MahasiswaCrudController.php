@@ -39,7 +39,6 @@ class MahasiswaCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         $fields = [
-            IdField::new('id')->hideOnForm()->hideOnIndex(),
             TextField::new('nim'),
             TextField::new('nama'),
             TextField::new('kontak'),
@@ -59,21 +58,17 @@ class MahasiswaCrudController extends AbstractCrudController
                     $kecChoices[$k->getNama()] = $k; 
                 }
 
-                // $fields[] = ChoiceField::new('lokasi.kabupaten.provinsi', "Provinsi")
-                //                 ->setChoices($provChoices)
-                //                 ->setRequired(true);
-
-                // $fields[] = ChoiceField::new('provinsi', "Kabupaten")
-                //                 ->setChoices([""])
-                //                 ->setRequired(true)
-                //                 ->setFormTypeOption('disabled','disabled');
-
                 $fields[] = ChoiceField::new('lokasi', "Kecamatan")
                                 ->setChoices($kecChoices)
                                 ->setRequired(true)
-                                // ->setFormTypeOption('disabled','disabled')
                                 ;
 
+                break;
+
+             case Crud::PAGE_DETAIL:
+                $fields[] = TextField::new('lokasi', "Kecamatan");
+                $fields[] = TextField::new('lokasi.kabupaten', "Kabupaten");
+                $fields[] = TextField::new('lokasi.kabupaten.provinsi', "Provinsi");
                 break;
 
         }
@@ -94,55 +89,4 @@ class MahasiswaCrudController extends AbstractCrudController
         ;
     }
 
-    // public function configureResponseParameters(KeyValueStore $responseParameters): KeyValueStore
-    // {
-    //     if (Crud::PAGE_DETAIL === $responseParameters->get('pageName')) {
-
-    //         $fieldCollection = $responseParameters->get('entity')->getFields();
-
-    //         $data = $this->mahasiswaService->single($fieldCollection["nim"]->getValue());
-
-    //         $fields = [ 
-    //             "kecamatan" => MahasiswaField::new("kecamatan", "Kecamatan")
-    //                         ->textType($data['kecamatan'])
-    //                         ->getAsDto(),
-    //             "kabupaten" => MahasiswaField::new("kabupaten", "Kabupaten")
-    //                         ->textType($data['kabupaten'])
-    //                         ->getAsDto(),
-    //             "provinsi" => MahasiswaField::new("provinsi", "Provinsi")
-    //                         ->textType($data['provinsi'])
-    //                         ->getAsDto()
-    //         ];
-
-    //         array_map(function ($field) use ($fieldCollection) {
-    //             $fieldCollection->set($field);
-    //         }, $fields);
-
-    //     }
-
-    //     return $responseParameters;
-    // }
-
-    // public function createEntity(string $entityFqcn)
-    // {
-    //     $context = $this->get(AdminContextProvider::class)->getContext();
-
-    //     if ($context->getCrud()->getCurrentPage() == Crud::PAGE_NEW && count($context->getRequest()->request)) {
-    //         $mahasiswaRequest = $context->getRequest()->request->get("Mahasiswa");
-
-    //         $mahasiswa = new Mahasiswa();
-    //         $mahasiswa->setNim($mahasiswaRequest["nim"]);
-    //         $mahasiswa->setNama($mahasiswaRequest["nama"]);
-    //         $mahasiswa->setEmail($mahasiswaRequest["email"]);
-    //         $mahasiswa->setKontak($mahasiswaRequest["kontak"]);
-
-    //         $kecamatan = $this->wilayahService->getByKecamatan($mahasiswaRequest["kecamatan_kecamatan"]);
-
-    //         $mahasiswa->setKecamatan($kecamatan);
-
-    //         return $mahasiswa;
-    //     }
-
-    //     return new $entityFqcn();
-    // }
 }

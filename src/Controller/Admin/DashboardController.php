@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\GeoJson;
 use App\Entity\Kabupaten;
 use App\Entity\Kecamatan;
 use App\Entity\Mahasiswa;
@@ -55,6 +56,7 @@ class DashboardController extends AbstractDashboardController
                 MenuItem::linkToCrud('Kecamatan', 'fa fa-comment', Kecamatan::class),
             ]),
             MenuItem::linkToCrud('Pengguna', 'fas fa-users', User::class),
+            MenuItem::linkToCrud('Pengaturan', 'fas fa-cogs', GeoJson::class),
             MenuItem::linkToLogout('Keluar', 'fa fa-sign-out')
         ];
     }

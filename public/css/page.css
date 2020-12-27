@@ -66,3 +66,8 @@ nav#nav ul li a:hover {
 .text-center {
 	text-align: center;
 }
+
+.grid-two {
+	display: grid;
+	grid-template-columns: auto auto;
+}
