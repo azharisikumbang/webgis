@@ -65,7 +65,7 @@ class MahasiswaRepository extends ServiceEntityRepository
         ;
     }
 
-    public function countByNim($nim) 
+    public function countByNim(string $nim) 
     {
         // select "2020", count(*) as total from mahasiswa where nim like '%$nim%'
         return $this->createQueryBuilder("m")
@@ -75,11 +75,6 @@ class MahasiswaRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult()
         ;
-    }
-
-    public function countByYear($year) 
-    {
-        
     }
     
 }

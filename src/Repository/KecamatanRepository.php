@@ -60,7 +60,7 @@ class KecamatanRepository extends ServiceEntityRepository
         ;
     }
 
-    public function countMahasiswaByKecamatanAndYear($kecamatan, $year)
+    public function countMahasiswaByKecamatanAndTahunNim($kecamatan, $year)
     {
         // select "2013" as tahun, count(*) as total from kecamatan k left join mahasiswa m on m.lokasi_id = k.id where m.nim like "2013%" AND k.id = $kecamatan
         return $this->createQueryBuilder("k")

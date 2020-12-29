@@ -45,7 +45,7 @@ class WilayahService
 		return $this->kabupatenRepository->findAll();
 	}
 
-	public function getAllKecamatan()
+	public function getAllKecamatan() : ?array
 	{
 		return $this->kecamatanRepository->findAll();
 	}
@@ -70,12 +70,12 @@ class WilayahService
 		return $this->kecamatanRepository->getMahasiswa($kecamatan);
 	}
 
-	public function countMahasiswaByKecamatanAndYear($kecamatan, $year) 
+	public function countMahasiswaByKecamatanAndTahunNim($kecamatan, $year) 
 	{
-		return $this->kecamatanRepository->countMahasiswaByKecamatanAndYear($kecamatan, $year);
+		return $this->kecamatanRepository->countMahasiswaByKecamatanAndTahunNim($kecamatan, $year);
 	}
 
-	public function countAll()
+	public function countAll() : array
 	{
 		$result["kecamatan"] = $this->kecamatanRepository->count([]);
 		$result["kabupaten"] = $this->kabupatenRepository->count([]);
