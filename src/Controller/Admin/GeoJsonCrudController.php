@@ -25,9 +25,4 @@ class GeoJsonCrudController extends AbstractCrudController
         ];
     }
 
-    // public function createEntity(string $entityFqcn)
-    // {
-    //     return new $entityFqcn();
-    // }
-    
 }

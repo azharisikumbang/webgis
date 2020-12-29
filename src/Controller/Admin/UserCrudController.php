@@ -45,7 +45,7 @@ class UserCrudController extends AbstractCrudController
         $fields[] = TextField::new('username');
 
         if ($pageName == Crud::PAGE_NEW || $pageName == Crud::PAGE_EDIT) {
-            $fields[] = TextField::new("password", "New Password");
+            $fields[] = TextField::new("password", "Password");
         }
 
 
@@ -56,6 +56,13 @@ class UserCrudController extends AbstractCrudController
 
     public function edit(AdminContext $context)
     {
+        // if ($this->getUser()->getUsername() !== $context->getEntity()->getInstance()->getUsername()) {
+        //     $url = empty($context->getReferrer())
+        //             ? $this->get(CrudUrlGenerator::class)->build()->setAction(Action::INDEX)->generateUrl()
+        //             : $context->getReferrer();
+        //     return $this->redirect($url);
+        // }
+
         $event = new BeforeCrudActionEvent($context);
         $this->get('event_dispatcher')->dispatch($event);
         if ($event->isPropagationStopped()) {

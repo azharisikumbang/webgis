@@ -34,7 +34,6 @@ class DashboardController extends AbstractDashboardController
             'dashboard_controller_class' => (new \ReflectionClass(static::class))->getShortName(),
             'counter' => $this->wilayahService->countAll()
         ]);
-        // return parent::index();
     }
 
     public function configureDashboard(): Dashboard

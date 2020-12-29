@@ -161,7 +161,6 @@ function loadMapIndicator() {
 }
 
 function createMahasiswaTable(data) {
-	// No - Nim - Nama
 	const table = document.createElement("table");
 	table.classList.add("popup-table");
 
