@@ -61,7 +61,7 @@ class MahasiswaCrudController extends AbstractCrudController
                 $fields[] = ChoiceField::new('lokasi', "Kecamatan")
                                 ->setChoices($kecChoices)
                                 ->setRequired(true)
-                                ;
+                            ;
 
                 break;
 
@@ -76,10 +76,11 @@ class MahasiswaCrudController extends AbstractCrudController
         return $fields;
     }
 
-    public function configureAssets(Assets $assets) : Assets
-    {
-        return $assets->addJsFile("js/admin.js");
-    }
+    // admin.js untuk handling input form
+    // public function configureAssets(Assets $assets) : Assets
+    // {
+    //     return $assets->addJsFile("js/admin.js");
+    // }
 
     public function configureActions(Actions $actions): Actions
     {

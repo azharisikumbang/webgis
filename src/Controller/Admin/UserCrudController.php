@@ -81,6 +81,7 @@ class UserCrudController extends AbstractCrudController
         $this->get(EntityFactory::class)->processActions($context->getEntity(), $context->getCrud()->getActionsConfig());
         $entityInstance = $context->getEntity()->getInstance();
 
+        // empty the password for editing
         $entityInstance->setPassword("");
 
         if ($context->getRequest()->isXmlHttpRequest()) {

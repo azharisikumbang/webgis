@@ -23,33 +23,33 @@ class KecamatanCrudController extends AbstractCrudController
         return Kecamatan::class;
     }
 
-     public function configureFields(string $pageName): iterable
-        {   
-            $fields = [
-                TextField::new('nama', 'Kecamatan')
-            ];
+    public function configureFields(string $pageName): iterable
+    {   
+        $fields = [
+            TextField::new('nama', 'Kecamatan')
+        ];
 
-            switch ($pageName) {
-                case Crud::PAGE_INDEX:
-                    $fields[] = TextField::new('kabupaten', 'Kabupaten')->setSortable(true);
-                    $fields[] = TextField::new('kabupaten.provinsi', 'Provinsi')->setSortable(true);
-                    break;
+        switch ($pageName) {
+            case Crud::PAGE_INDEX:
+                $fields[] = TextField::new('kabupaten', 'Kabupaten')->setSortable(true);
+                $fields[] = TextField::new('kabupaten.provinsi', 'Provinsi')->setSortable(true);
+                break;
 
-                case Crud::PAGE_NEW:
-                case Crud::PAGE_EDIT:
-                    $provinsi = $this->kabupatenService->getAllKabupaten();
-                    foreach ($provinsi as $p) {
-                        $provChoices[$p->getNama()] = $p; 
-                    }
+            case Crud::PAGE_NEW:
+            case Crud::PAGE_EDIT:
+                $provinsi = $this->kabupatenService->getAllKabupaten();
+                foreach ($provinsi as $p) {
+                    $provChoices[$p->getNama()] = $p; 
+                }
 
-                    $fields[] = ChoiceField::new('kabupaten', "Kabupaten")
-                                    ->setChoices($provChoices)
-                                    ->setRequired(true);
+                $fields[] = ChoiceField::new('kabupaten', "Kabupaten")
+                                ->setChoices($provChoices)
+                                ->setRequired(true);
 
-                    break;
+                break;
 
-            }
-
-            return $fields;
         }
+
+        return $fields;
+    }
 }
