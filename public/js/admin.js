@@ -1,4 +1,4 @@
-const apiUrl = "http://localhost:8000";
+const apiUrl = window.location.origin;
 
 async function request(url){
     const response = await fetch(url)
