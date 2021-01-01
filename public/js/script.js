@@ -120,14 +120,20 @@ async function mapClicked(e){
 	showOnPopup(element);
 }
 
-function showOnPopup(element) {
+function showOnPopup(element, messageOnNull = null) {
+
+	messageOnNull = (messageOnNull) ? messageOnNull : "Tidak Ada Data.";
+
 	let popupEl = document.getElementById("map-popup-wrapper");
 
 	popupEl.style.opacity = 1;
 	popupEl.style.zIndex = 9999;
 
 	if (element.childNodes.length == 1) {
-		element.append(document.createTextNode("Tidak Ada Data."));
+		const _div = document.createElement("div");
+		_div.style.marginTop = "16px";
+		_div.innerHTML = messageOnNull;
+		element.append(_div);
 	}
 
 	popupEl.firstElementChild.innerHTML = element.outerHTML;
@@ -209,14 +215,20 @@ async function getMahasiswaDetail(nim) {
 		return showOnPopup(getCache("mahasiswa-" + nim));
 	}
 
+	let isOkay = true;
+
 	let element = document.createElement("div"); 
 
 	await request(apiUrl + "/api/mahasiswa/" + nim)
 		.then(async res => {
 			if (res.code == 200) {
 				await element.append(createPopupTitle("Data Dari " + res.data.nama));
-				await element.append(createMahasiswaDetail(res.data))
+				await element.append(createMahasiswaDetail(res.data));
+
+				return;
 			}
+
+			isOkay = false;
 		})
 
 	const back = document.createElement("a");
@@ -231,7 +243,10 @@ async function getMahasiswaDetail(nim) {
 	setCache("mahasiswa-" + nim, element);
 
 
-	showOnPopup(element);
+	showOnPopup(
+		element, 
+		(isOkay) ? null : "Anda belum terautorisasi, silahkan login"  
+	);
 }
 
 function createMahasiswaDetail(data){

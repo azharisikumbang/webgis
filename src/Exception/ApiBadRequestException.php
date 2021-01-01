@@ -2,7 +2,6 @@
 
 namespace App\Exception;
 
-use App\Model\ApiResponseProblem;
 use Symfony\Component\HttpFoundation\Response;
 
 final class ApiBadRequestException extends \Exception implements ApiExceptionInterface

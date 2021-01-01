@@ -2,6 +2,7 @@
 
 namespace App\Controller\Api;
 
+use App\Exception\ApiUnauthorizedException;
 use App\Http\ApiOkResponse;
 use App\Service\MahasiswaService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,6 +16,9 @@ class MahasiswaController extends AbstractController
      */
     public function single(MahasiswaService $mahasiswaService, string $nim): Response
     {
+        if (!$this->getUser()) {
+            throw new ApiUnauthorizedException("Anda belum diautentikasi");
+        }
     	return $this->json(
     		new ApiOkResponse(
     			Response::HTTP_OK,

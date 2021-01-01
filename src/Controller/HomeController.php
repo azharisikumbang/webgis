@@ -13,10 +13,6 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login');
-        }
-
     	return $this->render('home/index.html.twig');
     }
 
@@ -25,10 +21,6 @@ class HomeController extends AbstractController
      */
     public function galeriPage(): Response
     {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login');
-        }
-
         return $this->render('home/galeri.html.twig');
     }
 
@@ -37,10 +29,6 @@ class HomeController extends AbstractController
      */
     public function visiMisiPage(): Response
     {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login');
-        }
-
         return $this->render('home/visi_misi.html.twig');
     }    
 
@@ -50,10 +38,6 @@ class HomeController extends AbstractController
      */
     public function tentangPage(): Response
     {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login');
-        }
-
         return $this->render('home/tentang.html.twig');
     }
     
