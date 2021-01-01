@@ -48,7 +48,7 @@ async function loadMap() {
 
 	let geojsonFeature;
 
-	await request("https://raw.githubusercontent.com/azharisikumbang/shape-file-indonesia/main/geoJSON/indonesia3.json")
+	await request(apiUrl + "/geojson/geojson-v1.json")
 		.then(async data => {
 			geojsonFeature = await data;
 		});
