@@ -8,17 +8,17 @@ const config = {
       lowest: {
         min: 0,
         color: "#d73027",
-        text: "< 5",
+        text: "< 5 mhs",
       },
       medium: {
         min: 5,
         color: "#fddb3a",
-        text: "5 - 10",
+        text: "5 - 20 mhs",
       },
       highest: {
-        min: 10,
+        min: 20,
         color: "#61b15a",
-        text: "> 10",
+        text: "> 20 mhs",
       },
     },
   },
@@ -64,23 +64,6 @@ async function loadMap() {
       countMahasiswaPerKecamatan = await data.data;
 
       for (let i = 0; i < geojsonFeature.features.length; i++) {
-        // let provs = [];
-        // let provName = geojsonFeature.features[
-        //   i
-        // ].properties.WADMPR.toUpperCase().replace(" ", "_");
-        // let kabName = geojsonFeature.features[
-        //   i
-        // ].properties.WADMKK.toUpperCase().replace(" ", "_");
-        // let kecName = geojsonFeature.features[
-        //   i
-        // ].properties.NAMOBJ.toUpperCase().replace(" ", "_");
-        // if (alls.hasOwnProperty(provName) < 1) {
-        //   alls[provName] = {};
-        // }
-        // if (alls[provName].hasOwnProperty(kabName) < 1) {
-        //   alls[provName][kabName] = [];
-        // }
-        // alls[provName][kabName].push(kecName);
         geojsonFeature.features[i].properties["kecamatan"] =
           geojsonFeature.features[i].properties.NAMOBJ.toUpperCase();
         geojsonFeature.features[i].properties["total"] = 0;

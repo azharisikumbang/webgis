@@ -19,7 +19,7 @@ class DashboardController extends AbstractDashboardController
 {
     private $wilayahService;
 
-    public function __construct(WilayahService $wilayahService) 
+    public function __construct(WilayahService $wilayahService)
     {
         $this->wilayahService = $wilayahService;
     }
@@ -39,13 +39,13 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Webgis')
+            ->setTitle('Webgis Persebaran Mahasiswa')
         ;
     }
 
     public function configureMenuItems(): iterable
     {
-         return [
+        return [
             MenuItem::linktoDashboard('Dashboard', 'fa fa-home'),
             MenuItem::linkToRoute('Lihat Peta', 'fa fa-map-marked', 'home'),
             MenuItem::linkToCrud('Mahasiswa', 'fas fa-list', Mahasiswa::class),

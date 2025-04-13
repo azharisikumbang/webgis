@@ -37,7 +37,7 @@ class DataAdministrasiDaerahFixtures extends Fixture
                     $manager->persist($kec);
                     $kab->addKecamatan($kec);
 
-                    $randomMahasiswa = rand(0, 30);
+                    $randomMahasiswa = rand(1, 100);
                     for ($i = 0; $i < $randomMahasiswa; $i++)
                     {
                         $mahasiswa = new Mahasiswa();
