@@ -40,9 +40,10 @@ class DataAdministrasiDaerahFixtures extends Fixture
                     $randomMahasiswa = rand(1, 100);
                     for ($i = 0; $i < $randomMahasiswa; $i++)
                     {
+                        $nim = rand(2002, 2025);
                         $mahasiswa = new Mahasiswa();
                         $mahasiswa->setNama($faker->name());
-                        $mahasiswa->setNim($faker->numerify(sprintf("%s%s", date("Y"), "########")));
+                        $mahasiswa->setNim($faker->numerify(sprintf("%s%s", $nim, "########")));
                         $mahasiswa->setEmail($faker->email());
                         $mahasiswa->setKontak($faker->phoneNumber());
                         $mahasiswa->setLokasi($kec);

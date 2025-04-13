@@ -8,17 +8,17 @@ const config = {
       lowest: {
         min: 0,
         color: "#d73027",
-        text: "< 5 mhs",
+        text: "< 50 mhs",
       },
       medium: {
-        min: 5,
+        min: 50,
         color: "#fddb3a",
-        text: "5 - 20 mhs",
+        text: "50 - 100 mhs",
       },
       highest: {
-        min: 20,
+        min: 100,
         color: "#61b15a",
-        text: "> 20 mhs",
+        text: "> 100 mhs",
       },
     },
   },
