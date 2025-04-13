@@ -67,7 +67,8 @@ class Kabupaten
 
     public function addKecamatan(Kecamatan $kecamatan): self
     {
-        if (!$this->kecamatans->contains($kecamatan)) {
+        if (!$this->kecamatans->contains($kecamatan))
+        {
             $this->kecamatans[] = $kecamatan;
             $kecamatan->setKabupaten($this);
         }
@@ -77,9 +78,11 @@ class Kabupaten
 
     public function removeKecamatan(Kecamatan $kecamatan): self
     {
-        if ($this->kecamatans->removeElement($kecamatan)) {
+        if ($this->kecamatans->removeElement($kecamatan))
+        {
             // set the owning side to null (unless already changed)
-            if ($kecamatan->getKabupaten() === $this) {
+            if ($kecamatan->getKabupaten() === $this)
+            {
                 $kecamatan->setKabupaten(null);
             }
         }
@@ -99,8 +102,8 @@ class Kabupaten
         return $this;
     }
 
-    public function __toString() : string
+    public function __toString(): string
     {
-        return $this->getNama();
+        return str_replace("_", " ", $this->getNama());
     }
 }

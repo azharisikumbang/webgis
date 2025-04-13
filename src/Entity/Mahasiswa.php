@@ -29,7 +29,7 @@ class Mahasiswa
     private $nama;
 
     /**
-     * @ORM\Column(type="string", length=16, nullable=true)
+     * @ORM\Column(type="string", length=32, nullable=true)
      */
     private $kontak;
 
@@ -108,11 +108,13 @@ class Mahasiswa
         return $this;
     }
 
-    public function getProvinsi() {
+    public function getProvinsi()
+    {
         return $this->lokasi->getProvinsi();
     }
 
-    public function getKabupaten() {
+    public function getKabupaten()
+    {
         return $this->lokasi->getKabupaten();
     }
 }

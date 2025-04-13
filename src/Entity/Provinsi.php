@@ -61,7 +61,8 @@ class Provinsi
 
     public function addKabupaten(Kabupaten $kabupaten): self
     {
-        if (!$this->kabupatens->contains($kabupaten)) {
+        if (!$this->kabupatens->contains($kabupaten))
+        {
             $this->kabupatens[] = $kabupaten;
             $kabupaten->setProvinsi($this);
         }
@@ -71,9 +72,11 @@ class Provinsi
 
     public function removeKabupaten(Kabupaten $kabupaten): self
     {
-        if ($this->kabupatens->removeElement($kabupaten)) {
+        if ($this->kabupatens->removeElement($kabupaten))
+        {
             // set the owning side to null (unless already changed)
-            if ($kabupaten->getProvinsi() === $this) {
+            if ($kabupaten->getProvinsi() === $this)
+            {
                 $kabupaten->setProvinsi(null);
             }
         }
@@ -81,9 +84,9 @@ class Provinsi
         return $this;
     }
 
-    
-    public function __toString() : string
+
+    public function __toString(): string
     {
-        return $this->getNama();
+        return str_replace("_", " ", $this->getNama());
     }
 }

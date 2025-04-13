@@ -79,7 +79,8 @@ class Kecamatan
 
     public function addMahasiswa(Mahasiswa $mahasiswa): self
     {
-        if (!$this->mahasiswas->contains($mahasiswa)) {
+        if (!$this->mahasiswas->contains($mahasiswa))
+        {
             $this->mahasiswas[] = $mahasiswa;
             $mahasiswa->setLokasi($this);
         }
@@ -89,9 +90,11 @@ class Kecamatan
 
     public function removeMahasiswa(Mahasiswa $mahasiswa): self
     {
-        if ($this->mahasiswas->removeElement($mahasiswa)) {
+        if ($this->mahasiswas->removeElement($mahasiswa))
+        {
             // set the owning side to null (unless already changed)
-            if ($mahasiswa->getLokasi() === $this) {
+            if ($mahasiswa->getLokasi() === $this)
+            {
                 $mahasiswa->setLokasi(null);
             }
         }
@@ -99,12 +102,13 @@ class Kecamatan
         return $this;
     }
 
-    public function getProvinsi() {
+    public function getProvinsi()
+    {
         return $this->kabupaten->getProvinsi();
     }
-    
-    public function __toString() : string
+
+    public function __toString(): string
     {
-        return $this->getNama();
+        return str_replace("_", " ", $this->getNama());
     }
 }
