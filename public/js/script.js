@@ -36,7 +36,7 @@ async function loadMap() {
   const mapboxToken =
     "pk.eyJ1Ijoia3VteWFrdW0iLCJhIjoiY2tpcWhhaXRlMDlnMDJ0b3pwbTNvaDl4MSJ9.PhflJtxgdetwjV3eRmG6EQ";
 
-  const map = L.map("map").setView([0, 119.40207], 5);
+  const map = L.map("map").setView([0, 109], 6);
 
   L.tileLayer(
     "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
