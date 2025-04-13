@@ -47,7 +47,7 @@ class DashboardController extends AbstractDashboardController
     {
         return [
             MenuItem::linktoDashboard('Dashboard', 'fa fa-home'),
-            MenuItem::linkToRoute('Lihat Peta', 'fa fa-map-marked', 'home'),
+            MenuItem::linkToRoute('Lihat Peta', 'fa fa-map-marked', 'home')->setLinkTarget("_blank"),
             MenuItem::linkToCrud('Mahasiswa', 'fas fa-list', Mahasiswa::class),
             MenuItem::subMenu('Wilayah', 'fa fa-marker')->setSubItems([
                 MenuItem::linkToCrud('Provinsi', 'fa fa-tags', Provinsi::class),
