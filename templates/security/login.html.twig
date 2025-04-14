@@ -1,42 +1,84 @@
-{% extends 'base.html.twig' %}
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{# This template checks for 'ea' variable existence because it can
+   be used in a EasyAdmin Dashboard controller, where 'ea' is defined
+   or from any other Symfony controller, where 'ea' is not defined #}
+{% extends ea is defined ? ea.templatePath('layout') : '@EasyAdmin/page/login_minimal.html.twig' %}
+{% trans_default_domain ea is defined ? ea.i18n.translationDomain : (translation_domain is defined ? translation_domain ?? 'messages') %}
 
-{% block title %}Log in!{% endblock %}
+{% block body_class 'page-login' %}
+	{% block page_title %}
+{{ page_title is defined ? page_title|raw : (ea is defined ? ea.dashboardTitle|raw : '') }}
+{% endblock %}
 
-{% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+	{% block wrapper_wrapper %}
+	{% set page_title = block('page_title') %}
+	{% set _username_label = username_label is defined ? username_label|trans : 'login_page.username'|trans({}, 'EasyAdminBundle') %}
+	{% set _password_label = password_label is defined ? password_label|trans : 'login_page.password'|trans({}, 'EasyAdminBundle') %}
+	{% set _sign_in_label = sign_in_label is defined ? sign_in_label|trans : 'login_page.sign_in'|trans({}, 'EasyAdminBundle') %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
+		<div class="login-wrapper"> <header class="main-header mb-4">
+			<div id="header-logo">
+				{% block header_logo %}
+					{% if page_title %}
+						{% if ea is defined %}
+							<a class="logo {{ page_title|length > 14 ? 'logo-long' }}" title="{{ page_title|striptags }}" href="{{ path(ea.dashboardRouteName) }}">
+								{{ page_title|raw }}
+							</a>
+						{% else %}
+							<div class="logo {{ page_title|length > 14 ? 'logo-long' }}">
+								{{ page_title|raw }}
+							</div>
+						{% endif %}
+					{% endif %}
+				{% endblock header_logo %}
+			</div>
+		</header>
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputUsername">Username</label>
-    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" required>
+		{% if error|default(false) %}
+			<div class="w-100 alert alert-danger">
+				{{ error.messageKey|trans(error.messageData, 'security') }}
+			</div>
+		{% endif %}
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+		<section class="content">
+			<form method="post" action="{{ action|default('') }}">
+				{% if csrf_token_intention|default(false) %}
+					<input type="hidden" name="_csrf_token" value="{{ csrf_token(csrf_token_intention) }}">
+				{% endif %}
 
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
+				<input type="hidden" name="{{ target_path_parameter|default('_target_path') }}" value="{{ target_path|default(ea is defined ? path(ea.dashboardRouteName) : '/') }}"/>
 
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-    #}
+				<div class="form-group field-text">
+					<label for="username" class="sr-only form-control-label required">{{ _username_label }}</label>
+					<div class="form-widget form-widget-with-icon">
+						<i class="fa fa-fw fa-user"></i>
+						<input type="text" id="username" name="{{ username_parameter|default('_username') }}" class="form-control" placeholder="{{ _username_label }}" value="{{ last_username|default('') }}" required autofocus>
+					</div>
+				</div>
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+				<div class="form-group field-password">
+					<label for="password" class="sr-only form-control-label required">{{ _password_label }}</label>
+					<div class="form-widget form-widget-with-icon">
+						<i class="fa fa-fw fa-lock"></i>
+						<input type="password" id="password" name="{{ password_parameter|default('_password') }}" class="form-control" placeholder="{{ _password_label }}" required>
+					</div>
+				</div>
+
+				<div class="form-group field-button">
+					<button type="submit" class="btn btn-primary btn-lg btn-block" onclick="this.form.submit(); this.disabled=true;">{{ _sign_in_label }}</button>
+				</div>
+			</form>
+		</section>
+
+		<div class="alert alert-info" role="alert">
+			<h4 class="alert-heading">Perhatian!</h4>
+			<p>Data dan informasi yang terkandung dalam website ini adalah bukan sebenarnya, hanya diperuntukkan sebagai data uji coba.</p>
+			<hr>
+			<p class="mb-0">
+				Untuk mengakses sistem dapat menggunakan akun
+				<b>admin</b>
+				<b>admin123</>
+			</p>
+		</div>
+	</div>
 {% endblock %}

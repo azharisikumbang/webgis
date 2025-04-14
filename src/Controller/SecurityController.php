@@ -14,14 +14,15 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        if ($this->getUser()) {
+        if ($this->getUser())
+        {
             return $this->redirectToRoute('admin');
         }
 
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('@EasyAdmin/page/login.html.twig', [
+        return $this->render('security/login.html.twig', [
             'error' => $error,
             'last_username' => $lastUsername,
             'translation_domain' => 'admin',
